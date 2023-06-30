@@ -1,6 +1,6 @@
 //import { Button } from "@mui/material"
-import { Container } from "@mui/material"
-import Button from "@mui/material/Button"
+//import { Container } from "@mui/material"
+//import Button from "@mui/material/Button"
 import { AppRouter } from "./router/AppRouter"
 //https://mui.com/system/properties/
 //paddingBottom = pb hacia abajo
@@ -11,10 +11,8 @@ import { AppRouter } from "./router/AppRouter"
 
 const OrangeApp = () => {
   return (
-    <>
-   
-   
-    <AppRouter/>
+    <>   
+     <AppRouter/>
     </>
      
   )
