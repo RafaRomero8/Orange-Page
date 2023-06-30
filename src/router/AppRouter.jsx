@@ -5,6 +5,7 @@ import { Home } from "../orange/pages/Home";
 import { About } from "../orange/pages/About";
 import { Services } from "../orange/pages/Services";
 import { Contact } from "../orange/pages/Contact";
+import { Navbar } from "../ui/components/Navbar";
 
 
 
@@ -12,6 +13,8 @@ export const AppRouter = () => {
   return (
 
     <>
+       
+       <Navbar/>
       <Routes>
          <Route path="home" element={<Home/>}/>
          <Route path="about" element={<About/>}/>
