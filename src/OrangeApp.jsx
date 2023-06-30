@@ -12,12 +12,7 @@ import { AppRouter } from "./router/AppRouter"
 const OrangeApp = () => {
   return (
     <>
-    <Container sx={{border:15,borderStyle:"solid",color:"blue",
-                     pb:2 }}>
-      <h1>Pagina Orange</h1>
-        <Button variant="contained">boton</Button>
-      
-    </Container>
+   
    
     <AppRouter/>
     </>
