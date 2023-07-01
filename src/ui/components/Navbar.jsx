@@ -15,10 +15,11 @@ import AdbIcon from '@mui/icons-material/Adb';
 import { useState } from 'react';
 //import { purple } from '@mui/material/colors';
 import { createTheme} from '@mui/material/styles';
-import { LogoDevSharp } from '@mui/icons-material';
+//import { LogoDevSharp } from '@mui/icons-material';
 
-const pages = ['Home', 'About', 'Services','Contact'];
-const logo = ['landing'];
+const pages = ['home','about','services','contact'];
+//const logo = ['landing'];
+
 
 const theme = createTheme({
     palette: {
@@ -31,6 +32,8 @@ const theme = createTheme({
     },
   })
 
+
+  
 export const Navbar = () => {
 
     const [anchorElNav, setAnchorElNav] = useState(null);
@@ -116,9 +119,9 @@ export const Navbar = () => {
 
                   }}
                   textAlign="center">
-                    <Link style={{textDecorationLine:'none'}} to={`/${page}`}>
+                    <NavLink style={{textDecorationLine:'none'}} to={`/${page}`}>
                         {page}
-                    </Link>
+                    </NavLink>
                     </Typography>
                 </MenuItem>
               ))}
@@ -150,9 +153,7 @@ export const Navbar = () => {
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                <Link style={{textDecoration:'none'}} to={'/'}>
-                        {page}
-                    </Link>
+               < NavLink style={{textDecorationLine:'none'}}  to={`/${page}`}> {page} </NavLink>
               </Button>
             ))}
           </Box>
