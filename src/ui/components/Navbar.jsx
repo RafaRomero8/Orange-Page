@@ -13,24 +13,21 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { useState } from 'react';
-import { createTheme, styled } from '@mui/material/styles';
 //import { purple } from '@mui/material/colors';
-
+import { createTheme, styled } from '@mui/material/styles';
 
 const pages = ['Home', 'About', 'Services','Contact'];
 //const settings = ['home', 'about', 'services', 'contact'];
-
-
 const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#1de9b6',
+    palette: {
+      primary: {
+        main: '#1de9b6',
+      },
+      secondary: {
+        main: '#f44336',
+      },
     },
-    secondary: {
-      main: '#f44336',
-    },
-  },
-});
+  })
 
 export const Navbar = () => {
 
@@ -65,7 +62,7 @@ export const Navbar = () => {
             variant="h6"
             noWrap
             component="a"
-            href=""
+            href="/"
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -117,9 +114,9 @@ export const Navbar = () => {
 
                   }}
                   textAlign="center">
-                    <NavLink  to={`/${page}`}>
+                    <Link  to={`/${page}`}>
                         {page}
-                    </NavLink>
+                    </Link>
                     </Typography>
                 </MenuItem>
               ))}
@@ -151,7 +148,9 @@ export const Navbar = () => {
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                {page}
+                <Link style={{textDecoration:'none'}} to={`/${page}`}>
+                        {page}
+                    </Link>
               </Button>
             ))}
           </Box>
