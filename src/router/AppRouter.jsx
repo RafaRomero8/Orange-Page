@@ -1,10 +1,7 @@
 import { Navigate, Route, Routes } from "react-router-dom"
 
-import { Landing } from "../auth/pages/Landing";
-import { Home } from "../orange/pages/Home";
-import { About } from "../orange/pages/About";
-import { Services } from "../orange/pages/Services";
-import { Contact } from "../orange/pages/Contact";
+import { Landing } from "../auth";
+import { Contact,Services,About,Home } from "../orange";
 import { Navbar } from "../ui/components/Navbar";
 
 
@@ -12,8 +9,7 @@ import { Navbar } from "../ui/components/Navbar";
 export const AppRouter = () => {
   return (
 
-    <>
-       
+    <>    
        <Navbar/>
       <Routes>
          <Route path="home" element={<Home/>}/>

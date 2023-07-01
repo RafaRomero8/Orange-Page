@@ -1,7 +1,4 @@
 import { Link, NavLink } from 'react-router-dom';
-
-
-
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -112,9 +109,15 @@ export const Navbar = () => {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">
-                    <NavLink className={ ({isActive}) => `nav-item nav-link ${isActive ? 'active':''}` }  to={`/${page}`}>
+                <MenuItem    sx={{background:'orange',textDecoration: 'none'}}  key={page} onClick={handleCloseNavMenu}>
+                  <Typography 
+                  sx={{
+                    background:'red',
+                    textDecoration: 'none',
+
+                  }}
+                  textAlign="center">
+                    <NavLink  to={`/${page}`}>
                         {page}
                     </NavLink>
                     </Typography>
