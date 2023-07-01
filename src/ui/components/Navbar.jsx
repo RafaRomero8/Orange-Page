@@ -1,4 +1,7 @@
-//import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
+
+
+
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -7,40 +10,57 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
+//import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
+//import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { useState } from 'react';
+import { createTheme, styled } from '@mui/material/styles';
+//import { purple } from '@mui/material/colors';
 
 
-const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const pages = ['Home', 'About', 'Services','Contact'];
+//const settings = ['home', 'about', 'services', 'contact'];
+
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#1de9b6',
+    },
+    secondary: {
+      main: '#f44336',
+    },
+  },
+});
 
 export const Navbar = () => {
 
     const [anchorElNav, setAnchorElNav] = useState(null);
-    const [anchorElUser, setAnchorElUser] = useState(null);
+    //const [anchorElUser, setAnchorElUser] = useState(null);
   
     const handleOpenNavMenu = (event) => {
       setAnchorElNav(event.currentTarget);
     };
-    const handleOpenUserMenu = (event) => {
-      setAnchorElUser(event.currentTarget);
-    };
+    //const handleOpenUserMenu = (event) => {
+      //setAnchorElUser(event.currentTarget);
+    //};
   
     const handleCloseNavMenu = () => {
       setAnchorElNav(null);
     };
   
-    const handleCloseUserMenu = () => {
-      setAnchorElUser(null);
-    };
+   // const handleCloseUserMenu = () => {
+     // setAnchorElUser(null);
+   // };
+
+
+ 
   
     return (
 
-        <AppBar position="static">
+        <AppBar position="static" theme={theme}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
@@ -48,7 +68,7 @@ export const Navbar = () => {
             variant="h6"
             noWrap
             component="a"
-            href="/"
+            href=""
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -59,7 +79,7 @@ export const Navbar = () => {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            Orange
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -93,12 +113,16 @@ export const Navbar = () => {
             >
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                  <Typography textAlign="center">
+                    <NavLink className={ ({isActive}) => `nav-item nav-link ${isActive ? 'active':''}` }  to={`/${page}`}>
+                        {page}
+                    </NavLink>
+                    </Typography>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+         { /* <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />*/}
           <Typography
             variant="h5"
             noWrap
@@ -128,11 +152,11 @@ export const Navbar = () => {
               </Button>
             ))}
           </Box>
-
+       {/*
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt="Remy Sharp" src="" />
               </IconButton>
             </Tooltip>
             <Menu
@@ -157,7 +181,8 @@ export const Navbar = () => {
                 </MenuItem>
               ))}
             </Menu>
-          </Box>
+              </Box>*/}
+
         </Toolbar>
       </Container>
     </AppBar>
