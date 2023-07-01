@@ -14,10 +14,12 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { useState } from 'react';
 //import { purple } from '@mui/material/colors';
-import { createTheme, styled } from '@mui/material/styles';
+import { createTheme} from '@mui/material/styles';
+import { LogoDevSharp } from '@mui/icons-material';
 
 const pages = ['Home', 'About', 'Services','Contact'];
-//const settings = ['home', 'about', 'services', 'contact'];
+const logo = ['landing'];
+
 const theme = createTheme({
     palette: {
       primary: {
@@ -106,15 +108,15 @@ export const Navbar = () => {
               }}
             >
               {pages.map((page) => (
-                <MenuItem    sx={{background:'orange',textDecoration: 'none'}}  key={page} onClick={handleCloseNavMenu}>
+                <MenuItem    sx={{background:'#1de9b6',paddingRight:10}}  key={page} onClick={handleCloseNavMenu}>
                   <Typography 
                   sx={{
-                    background:'red',
+                    //background:'red',
                     textDecoration: 'none',
 
                   }}
                   textAlign="center">
-                    <Link  to={`/${page}`}>
+                    <Link style={{textDecorationLine:'none'}} to={`/${page}`}>
                         {page}
                     </Link>
                     </Typography>
@@ -127,7 +129,7 @@ export const Navbar = () => {
             variant="h5"
             noWrap
             component="a"
-            href=""
+            href="/"
             sx={{
               mr: 2,
               display: { xs: 'flex', md: 'none' },
@@ -148,7 +150,7 @@ export const Navbar = () => {
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                <Link style={{textDecoration:'none'}} to={`/${page}`}>
+                <Link style={{textDecoration:'none'}} to={'/'}>
                         {page}
                     </Link>
               </Button>

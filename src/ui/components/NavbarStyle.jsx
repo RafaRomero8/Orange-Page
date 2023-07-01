@@ -1,16 +1,9 @@
 
 
-
-
-const NavbarStyle = (theme) => {
-  
-
-  return theme;
-  
-    
+const NavbarStyle = () => {
+  return (
+    <div>NavbarStyle</div>
+  )
 }
 
 export default NavbarStyle
-
-  
-
