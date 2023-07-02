@@ -1,18 +1,12 @@
-//import Carousel from 'react-material-ui-carousel'
 import Carousel from 'react-bootstrap/Carousel';
-import { Container, Grid } from "@mui/material"
+import { Container} from "@mui/material"
 import rampa from "../../assets/heroes/rampa.jpg"
 import rampa2 from "../../assets/heroes/-buda.jpg"
-//import Item from './Item'
-//import slider from '../helper/slider'
-//import { red } from '@mui/material/colors'
-//import { Paper, Button } from '@mui/material'
 
 //https://react-bootstrap.netlify.app/docs/components/carousel#api
 
 const Carousel_orange = () => {
-    //console.log(Item)
-    //const [id,setIma] = useState("");
+    //optimizar imagenes en una sola carpeta
 
     return (
         <Container xs={12} sx={{borderStyle:"solid",color:"gray",mt:3,pb:1}}>
@@ -67,33 +61,3 @@ const Carousel_orange = () => {
 }
 
 export default Carousel_orange
-
-
-/*
-function Carousel_orange()
-{
-   
-
-    return (
-        <Carousel>
-            {
-                slider.map( item => <Item key={item.id} item={item} /> )
-            }
-        </Carousel>
-    )
-}
-
-function Item(props)
-{
-    return (
-        <Paper>
-            <h2>{props.item.name}</h2>
-            <p>{props.item.description}</p>
-
-            <Button className="CheckButton">
-                Check it out!
-            </Button>
-        </Paper>
-    )
-}
-*/
