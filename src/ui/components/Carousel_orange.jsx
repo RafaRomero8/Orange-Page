@@ -2,6 +2,8 @@ import Carousel from 'react-bootstrap/Carousel';
 import { Container} from "@mui/material"
 import rampa from "../../assets/heroes/rampa.jpg"
 import rampa2 from "../../assets/heroes/-buda.jpg"
+import batman from "../../assets/heroes/dc-batman.jpg"
+
 
 //https://react-bootstrap.netlify.app/docs/components/carousel#api
 
@@ -29,7 +31,7 @@ const Carousel_orange = () => {
         <Carousel.Item interval={4000}>
           <img
             className="d-block w-100"
-            src={rampa}
+            src={batman}
             alt="Second slide"
             width={400}
              height={300}
