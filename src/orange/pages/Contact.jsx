@@ -4,7 +4,14 @@ import emailjs from '@emailjs/browser';
 import { Box, Button, TextField } from '@mui/material';
 import { Container, Grid } from "@mui/material"
 
+//console.log(import.meta.env.VITE_SERVICE_ID)
+
 export const Contact = () => {
+
+  const service = import.meta.env.VITE_SERVICE_ID
+  const template = import.meta.env.VITE_TEMPLATE_ID
+  const public_key = import.meta.env.VITE_PUBLIC_KEY
+
   const form = useRef();
   const [email, setEmail] = useState("");
   const [error, setError] = useState({
@@ -21,24 +28,23 @@ export const Contact = () => {
   const sendEmail = (e) => {
     e.preventDefault();
 
-  
+    if(validateEmail(email)){
+      setError({
+        error:false,
+        message:"",
+      })
+      console.log("Email correcto");
+    }else{
+      setError({
+        error:true,
+        message:"Email incorrecto",
+      })
+      console.log("Email incorrecto");
+    }
 
-    emailjs.sendForm('service_xel40ex', 'template_og658j4',
-     form.current, 'cUTJvK1LQKu2gFIAd')
+    emailjs.sendForm(service,template,
+     form.current, public_key)
       .then((result) => {
-        if(validateEmail(email)){
-          setError({
-            error:false,
-            message:"",
-          })
-          console.log("Email correcto");
-        }else{
-          setError({
-            error:true,
-            message:"Email incorrecto",
-          })
-          console.log("Email incorrecto");
-        }
           console.log(result.text);
           alert("Mensaje Enviado con Exito")
           form.current.reset() //current melimpia el formulario
