@@ -1,102 +1,140 @@
 
-import { Formik,useFormik } from 'formik';
-import  {useRef, useState } from 'react';
-//import emailjs from '@emailjs/browser';
-//import { Box, Button, TextField } from '@mui/material';
-//import { Container, Grid } from "@mui/material"
-import * as Yup from 'yup'
-//ir a yup para checar lasvalidaciones
+import  { useRef, useState } from 'react';
+import emailjs from '@emailjs/browser';
+import { Box, Button, TextField } from '@mui/material';
+import { Container, Grid } from "@mui/material"
 
-const schema = Yup.object().shape({
-  email:Yup.string().email('Email invalido').required(),
-  password:Yup.string().min(2).required(),
-
-})
-
+//console.log(import.meta.env.VITE_SERVICE_ID)
 
 export const Contact = () => {
-  //const {register,errors,handleSubmit} = useForm();
 
+  const service = import.meta.env.VITE_SERVICE_ID
+  const template = import.meta.env.VITE_TEMPLATE_ID
+  const public_key = import.meta.env.VITE_PUBLIC_KEY
 
+  const form = useRef();
+  const [email, setEmail] = useState("");
+  const [error, setError] = useState({
+    error:false,
+    message:" ",
+  });
 
-  const {handleSubmit,handleChange,handleReset,errors,values} = useFormik(
-    {
-      initialValues:{
-        email:'',
-        password:'' 
-      },
-      onSubmit: (values,{resetForm})=>{
-        resetForm();
-        console.log(values);
-       
-      },
-      validationSchema:schema,
-    })
+  //const [value, setValue] = useState('');
 
-  //   const  handleReset=(e) =>{
-  //     e.target.reset();
+  const validateEmail = (email) =>{
+    const regex =  /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+    return regex.test(email);
+  };
 
+  const sendEmail = (e) => {
+    e.preventDefault();
+    setEmail('');
 
-  //   } 
+    if(validateEmail(email)){
+      setError({
+        error:false,
+        message:"",
+      })
+      console.log("Email correcto");
+    }else{
+      setError({
+        error:true,
+        message:"Email incorrecto",
+      })
+      console.log("Email incorrecto");
+    }
 
+    emailjs.sendForm(service,template,
+     form.current, public_key)
+      .then((result) => {
+          console.log(result.text);
+          alert("Mensaje Enviado con Exito")
+        // form.current.reset() //current melimpia el formulario
+      }, (error) => {
+          console.log(error.text);
+      });
+      e.target.reset();
+  };
   return (
     <>
-     
-        <h1>contact</h1>
-        <form onSubmit={handleSubmit} onReset={handleReset}>
-          <input
-              type='email'
-              name='email'
-              value={values.email}
-              onChange={handleChange}
-          />
-          <input
-              type='password'
-              name='password'
-              value={values.password}
-              onChange={handleChange}
-              
-          />
-
-
-        <button type={'submit'}>Enviar</button>
-        <br/>
-        {errors.email && <span>invalido</span>}
-        {errors.password && <span>pass ivalido</span>}
-
-
-        </form>
-
-      {/* <Formik
-       onSubmit={() =>{
-          console.log('Form enviado')
-       }}
-      
-      >
-        {()=>  (
-         
-
-        )}
-      </Formik> */}
-
-
-        {/* <form onSubmit={handleSubmit(onSubmit)}>
-       <input
-          name='titulo'
-          ref={
-              register({
-                    required:{value:true,
-                     message:'Titulo obligatorio'}
-              })
-           }
-       
-       />
-
-       <button>Enviar</button>
-
-        </form> */}
-  
     
+     <h1>Contact</h1>
+    
+     <Container>  
+     
+      {/* <Box  component="form" ref="form" onSubmit={sendEmail}> */}
+      <form ref={form} onSubmit={sendEmail} className=''>
+      <TextField
+          name='user_name'
+          label="Name"
+          type="text"
+          variant='outlined'
+          fullWidth
+          error={true}
+          sx={{mb:2 }}
+        />
+          <TextField
+          name='user_phone'
+          label="Telefono"
+          type="text"
+          variant='outlined'
+          fullWidth
+          error={true}
+          sx={{mb:2 }}
+        />
+          <TextField
+          name='user_company'
+          label="Empresa"
+          type="text"
+          variant='outlined'
+          fullWidth
+          error={true}
+          sx={{mb:2 }}
+        />
+          <TextField
+          name='user_email'
+          label="Email"
+          type="email"
+          variant='outlined'
+          fullWidth
+          required
+          error={error.error}
+          helperText={error.message}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          sx={{mb:2 }}
+        />
+           <TextField
+          name='message'
+          label="Mensaje"
+          type="textarea"
+          variant='outlined'
+          fullWidth
+          error={true}
+          sx={{mb:2 }}
+          
+        />
+      
+        <Button 
+           type="submit"  
+           value="Send"
+          variant="contained"
+          sx={{mb:2 }}
+          >
+            Send
+        </Button>
+        </form>
+      {/* </Box> */}
+   
+
+    {/* <form ref={form} onSubmit={sendEmail} className=''>
+    <Grid xs={12}> 
+      
+        </Grid>
+      </form> */}
+    
+    </Container>
+  
     </>
     
   )
