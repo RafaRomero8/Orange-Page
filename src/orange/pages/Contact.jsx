@@ -12,20 +12,20 @@ export const Contact = () => {
   const template = import.meta.env.VITE_TEMPLATE_ID
   const public_key = import.meta.env.VITE_PUBLIC_KEY
 
-  const schema = Yup.object().shape({
-    email:Yup.string().email('Email invalido').required(),
-    password:Yup.string().min(2).required(),
+  // const schema = Yup.object().shape({
+  //   email:Yup.string().email('Email invalido').required(),
+  //   password:Yup.string().min(2).required(),
   
-  })
+  // })
   
   
 
   const form = useRef();
   const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
-  const [interprise,setInterprise] = useState("");
-  const [phone,setPhone] = useState("");
-  const [name,setName] = useState("");
+  // const [message, setMessage] = useState("");
+  // const [interprise,setInterprise] = useState("");
+  // const [phone,setPhone] = useState("");
+  // const [name,setName] = useState("");
   
   const [error, setError] = useState({
     error:false,
@@ -33,34 +33,48 @@ export const Contact = () => {
   });
 
 
-  const [error_name, setError_name] = useState({
-    error:false,
-    message:" ",
-  });
+  // const [error_name, setError_name] = useState({
+  //   error:false,
+  //   message:" ",
+  // });
 
   //const [value, setValue] = useState('');
 
   const validateEmail = (email) =>{
-    const regex = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/
-    // /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+    //const regex = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/
+    const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
     return regex.test(email);
   };
 
   const sendEmail = (e) => {
     e.preventDefault();
-    
-    setMessage('');
-    setInterprise('');
-    setPhone('');
-    setName('')
+    //setEmail('');
+    // setMessage('');
+    // setInterprise('');
+    // setPhone('');
+    // setName('')
+  const  validate_email = ()=>{
+    emailjs.sendForm(service,template,
+      form.current, public_key)
+       .then((result) => {
+           console.log(result.text);
+           alert("Mensaje Enviado con Exito")
+         // form.current.reset() //current melimpia el formulario
+       }, (error) => {
+           console.log(error.text);
+       });
+  }
+
    
     if(validateEmail(email)){
       setError({
         error:false,
         message:"",
-        setEmail:''
+        
       })
-      setEmail('');
+       validate_email()
+       setEmail('');
+      
       console.log("Email correcto");
     }else{
       setError({
@@ -70,16 +84,9 @@ export const Contact = () => {
       console.log("Email incorrecto");
     }
 
-    emailjs.sendForm(service,template,
-     form.current, public_key)
-      .then((result) => {
-          console.log(result.text);
-          alert("Mensaje Enviado con Exito")
-        // form.current.reset() //current melimpia el formulario
-      }, (error) => {
-          console.log(error.text);
-      });
-      e.target.reset();
+   
+
+      //e.target.reset();
   };
   return (
     <>
@@ -90,39 +97,39 @@ export const Contact = () => {
      
       {/* <Box  component="form" ref="form" onSubmit={sendEmail}> */}
       <form ref={form} onSubmit={sendEmail} className=''>
-      <TextField
+      {/* <TextField
           name='user_name'
           label="Name"
           type="text"
           variant='outlined'
           fullWidth
-          error={error.error}
+         // error={error.error}
           value={name}
           onChange={(e) => setName(e.target.value)}
           sx={{mb:2 }}
-        />
-          <TextField
+        /> */}
+          {/* <TextField
           name='user_phone'
           label="Telefono"
           type="text"
           variant='outlined'
           fullWidth
-          error={error.error}
+         // error={error.error}
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
           sx={{mb:2 }}
-        />
-          <TextField
+        /> */}
+          {/* <TextField
           name='user_company'
           label="Empresa"
           type="text"
           variant='outlined'
           fullWidth
-          error={error.error}
+          //error={error.error}
           value={interprise}
           onChange={(e) => setInterprise(e.target.value)}
           sx={{mb:2 }}
-        />
+        /> */}
           <TextField
           name='user_email'
           label="Email"
@@ -136,18 +143,18 @@ export const Contact = () => {
           onChange={(e) => setEmail(e.target.value)}
           sx={{mb:2 }}
         />
-           <TextField
+           {/* <TextField
           name='message'
           label="Mensaje"
           type="textarea"
           variant='outlined'
           fullWidth
-          error={error.error}
+          //error={error.error}
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           sx={{mb:2 }}
           
-        />
+        /> */}
       
         <Button 
            type="submit"  
