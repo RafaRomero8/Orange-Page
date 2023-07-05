@@ -3,7 +3,7 @@ import  { useRef, useState } from 'react';
 import emailjs from '@emailjs/browser';
 import { Box, Button, TextField } from '@mui/material';
 import { Container, Grid } from "@mui/material"
-
+import * as Yup from 'yup'
 //console.log(import.meta.env.VITE_SERVICE_ID)
 
 export const Contact = () => {
@@ -12,9 +12,28 @@ export const Contact = () => {
   const template = import.meta.env.VITE_TEMPLATE_ID
   const public_key = import.meta.env.VITE_PUBLIC_KEY
 
+  const schema = Yup.object().shape({
+    email:Yup.string().email('Email invalido').required(),
+    password:Yup.string().min(2).required(),
+  
+  })
+  
+  
+
   const form = useRef();
   const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [interprise,setInterprise] = useState("");
+  const [phone,setPhone] = useState("");
+  const [name,setName] = useState("");
+  
   const [error, setError] = useState({
+    error:false,
+    message:" ",
+  });
+
+
+  const [error_name, setError_name] = useState({
     error:false,
     message:" ",
   });
@@ -22,19 +41,26 @@ export const Contact = () => {
   //const [value, setValue] = useState('');
 
   const validateEmail = (email) =>{
-    const regex =  /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+    const regex = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/
+    // /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
     return regex.test(email);
   };
 
   const sendEmail = (e) => {
     e.preventDefault();
-    setEmail('');
-
+    
+    setMessage('');
+    setInterprise('');
+    setPhone('');
+    setName('')
+   
     if(validateEmail(email)){
       setError({
         error:false,
         message:"",
+        setEmail:''
       })
+      setEmail('');
       console.log("Email correcto");
     }else{
       setError({
@@ -70,7 +96,9 @@ export const Contact = () => {
           type="text"
           variant='outlined'
           fullWidth
-          error={true}
+          error={error.error}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
           sx={{mb:2 }}
         />
           <TextField
@@ -79,7 +107,9 @@ export const Contact = () => {
           type="text"
           variant='outlined'
           fullWidth
-          error={true}
+          error={error.error}
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
           sx={{mb:2 }}
         />
           <TextField
@@ -88,7 +118,9 @@ export const Contact = () => {
           type="text"
           variant='outlined'
           fullWidth
-          error={true}
+          error={error.error}
+          value={interprise}
+          onChange={(e) => setInterprise(e.target.value)}
           sx={{mb:2 }}
         />
           <TextField
@@ -97,7 +129,7 @@ export const Contact = () => {
           type="email"
           variant='outlined'
           fullWidth
-          required
+          required //poner required si el campo es obligatrio OJO
           error={error.error}
           helperText={error.message}
           value={email}
@@ -110,7 +142,9 @@ export const Contact = () => {
           type="textarea"
           variant='outlined'
           fullWidth
-          error={true}
+          error={error.error}
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
           sx={{mb:2 }}
           
         />
