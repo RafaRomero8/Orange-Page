@@ -12,20 +12,20 @@ export const Contact = () => {
   const template = import.meta.env.VITE_TEMPLATE_ID
   const public_key = import.meta.env.VITE_PUBLIC_KEY
 
-  // const schema = Yup.object().shape({
-  //   email:Yup.string().email('Email invalido').required(),
-  //   password:Yup.string().min(2).required(),
+  const schema = Yup.object().shape({
+    //email:Yup.string().email('Email invalido').required(),
+    password:Yup.string().min(2).required(),
   
-  // })
+  })
   
   
 
   const form = useRef();
   const [email, setEmail] = useState("");
-  // const [message, setMessage] = useState("");
-  // const [interprise,setInterprise] = useState("");
-  // const [phone,setPhone] = useState("");
-  // const [name,setName] = useState("");
+  const [message, setMessage] = useState("");
+  const [interprise,setInterprise] = useState("");
+  const [phone,setPhone] = useState("");
+  const [name,setName] = useState("");
   
   const [error, setError] = useState({
     error:false,
@@ -33,10 +33,10 @@ export const Contact = () => {
   });
 
 
-  // const [error_name, setError_name] = useState({
-  //   error:false,
-  //   message:" ",
-  // });
+  const [error_name, setError_name] = useState({
+    error_name:false,
+    message:" ",
+  });
 
   //const [value, setValue] = useState('');
 
@@ -46,14 +46,22 @@ export const Contact = () => {
     return regex.test(email);
   };
 
+  const validateName = () =>{
+       
+          schema
+    //return regex.test(email);
+  };
+
+
   const sendEmail = (e) => {
     e.preventDefault();
     //setEmail('');
-    // setMessage('');
-    // setInterprise('');
-    // setPhone('');
-    // setName('')
-  const  validate_email = ()=>{
+    setMessage('');
+    setInterprise('');
+    setPhone('');
+    
+
+  const  send_email = ()=>{
     emailjs.sendForm(service,template,
       form.current, public_key)
        .then((result) => {
@@ -66,26 +74,30 @@ export const Contact = () => {
   }
 
    
-    if(validateEmail(email)){
+    if(validateEmail(email) && validateName()){
+      setError_name({
+        error_name:false,
+        message:"",
+      })
       setError({
         error:false,
-        message:"",
-        
+        message:"",   
       })
-       validate_email()
-       setEmail('');
-      
-      console.log("Email correcto");
+       //send_email()
+       setName('')
+       setEmail(''); 
+       console.log("Email correcto");
     }else{
       setError({
         error:true,
         message:"Email incorrecto",
       })
+      setError_name({
+        error_name:true,
+        message:"Ingrese almenos 2 caracteres",
+      })
       console.log("Email incorrecto");
     }
-
-   
-
       //e.target.reset();
   };
   return (
@@ -97,29 +109,34 @@ export const Contact = () => {
      
       {/* <Box  component="form" ref="form" onSubmit={sendEmail}> */}
       <form ref={form} onSubmit={sendEmail} className=''>
-      {/* <TextField
+      <TextField
           name='user_name'
           label="Name"
           type="text"
           variant='outlined'
+          
+          color="warning"
           fullWidth
-         // error={error.error}
+          //required='min'
+          error={error_name.error_name}
+          helperText={error_name.message}
           value={name}
           onChange={(e) => setName(e.target.value)}
           sx={{mb:2 }}
-        /> */}
-          {/* <TextField
+        />
+          <TextField
           name='user_phone'
           label="Telefono"
           type="text"
           variant='outlined'
           fullWidth
+          inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
          // error={error.error}
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
           sx={{mb:2 }}
-        /> */}
-          {/* <TextField
+        />
+          <TextField
           name='user_company'
           label="Empresa"
           type="text"
@@ -129,7 +146,7 @@ export const Contact = () => {
           value={interprise}
           onChange={(e) => setInterprise(e.target.value)}
           sx={{mb:2 }}
-        /> */}
+        />
           <TextField
           name='user_email'
           label="Email"
@@ -143,7 +160,7 @@ export const Contact = () => {
           onChange={(e) => setEmail(e.target.value)}
           sx={{mb:2 }}
         />
-           {/* <TextField
+           <TextField
           name='message'
           label="Mensaje"
           type="textarea"
@@ -154,7 +171,7 @@ export const Contact = () => {
           onChange={(e) => setMessage(e.target.value)}
           sx={{mb:2 }}
           
-        /> */}
+        />
       
         <Button 
            type="submit"  
