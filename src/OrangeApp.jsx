@@ -3,6 +3,7 @@
 //import Button from "@mui/material/Button"
 //import { Box } from "@mui/material"
 import { AppRouter } from "./router/AppRouter"
+import './styles.css';
 
 //https://mui.com/system/properties/
 //paddingBottom = pb hacia abajo

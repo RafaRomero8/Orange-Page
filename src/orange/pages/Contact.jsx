@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import emailjs from '@emailjs/browser';
+import { Box, Button, TextField } from '@mui/material';
 //import ButtonsResult from "./ButtonsResult";
 
 export const Contact = () => {
@@ -11,11 +12,11 @@ export const Contact = () => {
   const public_key = import.meta.env.VITE_PUBLIC_KEY
 
   const form = useRef();
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
-  const [interprise,setInterprise] = useState("");
-  const [phone,setPhone] = useState("");
-  const [name,setName] = useState("");
+  // const [email, setEmail] = useState("");
+  // const [message, setMessage] = useState("");
+  // const [interprise,setInterprise] = useState("");
+  // const [phone,setPhone] = useState("");
+  // const [name,setName] = useState("");
 
 
   const { register, handleSubmit, formState: { errors }, reset,watch } = useForm() 
@@ -44,26 +45,57 @@ export const Contact = () => {
       //alert("¡Validación exitosa!")
   }
 
-  const [colorInput, setColorInput] = useState('#fff7f7')
-  useEffect( ()=> {
-      let words = watch('prueba')
-      if(words === 'react'){setColorInput('#614ad3')}
-  } )
+  // const [colorInput, setColorInput] = useState('#fff7f7')
+  // useEffect( ()=> {
+  //     let words = watch('prueba')
+  //     if(words === 'react'){setColorInput('#614ad3')}
+  // } )
   
   return (
     <>
         <h2>Form Validation</h2>
         <form ref={form} onSubmit={ handleSubmit(customSubmit) } className='form-react'>
             <div className='form-control'>
-                <label>Name</label>
-                <input  type="text" {...register('user_name',{ 
+                {/* <label>Name</label> */}
+                {/* <input  placeholder="Username"  type="text" {...register('user_name',{ 
                     required:true,
                     minLength:5
                 })} />
-                {errors.name?.type === 'required' && <small className='fail'>El campo no puede estar vacío</small>}
-                {errors.name?.type === 'minLength' && <small className='fail'>El minimo de caracteres es 5</small>}
-                
+                {errors.user_name?.type === 'required' && <small >El campo no puede estar vacío</small>}
+                {errors.user_name?.type === 'minLength' && <small >El minimo de caracteres es 5</small>}
+                 */}
             </div>
+            
+
+
+            <div className="col-md-4 mb-3">
+      {/* <label >First name</label> */}
+      <input className={(errors.user_name?.type === 'required') || ( errors.user_name?.type === 'minLength') ? 'form-control is-invalid':'' }   placeholder="Username"  type="text" {...register('user_name',{ 
+                    required:true,
+                    minLength:5
+                })} />
+      {/* <input type="text" className="form-control is-valid"  placeholder="First name" />
+       */}
+      {errors.user_name?.type === 'required' && <div className="invalid-feedback" >El campo no puede estar vacío</div>}
+      {errors.user_name?.type === 'minLength' && <div className="invalid-feedback">El minimo de caracteres es 5</div>}
+    </div>
+
+            {/* <TextField
+          name='user_name'
+          label="Name"
+          type="text"
+          variant='outlined'
+          color="warning"
+          fullWidth
+          error={errors.user_name?.type === 'minLength'}
+          helperText={errors.user_name === 'El minimo de caracteres es 5'}
+          value={name}
+          
+          sx={{mb:2 }}
+        ><input  type="text" {...register('user_name',{ 
+          required:true,
+          minLength:5
+      })} /></TextField> */}
             {/* <div className='form-control'>
                 <label>Age</label>
                 <input type="number" {...register('age', {
